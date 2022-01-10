@@ -1,18 +1,17 @@
-﻿<#
-.SYNOPSIS
-	This script performs an Plug n Play Device ReScan
-.DESCRIPTION
-	This script performs an Plug n Play Device ReScan
-.PARAMETER WaitTime
-	The wait time in seconds for the devices to be ready after ReScan
-.EXAMPLE
-    Invoke-PnPReScan.ps1 -WaitTime 30
-.NOTES
-        NAME:      	Invoke-PnPReScan.ps1
-	AUTHOR:    	Fredrik Wall, fredrik@poweradmin.se
-	BLOG:       http://www.fredrikwall.se
-        CREATED:	11/19/2017
+<#
+    .SYNOPSIS
+        This script performs an Plug n Play Device ReScan
+    .DESCRIPTION
+        This script performs an Plug n Play Device ReScan
+    .PARAMETER WaitTime
+        The wait time in seconds for the devices to be ready after ReScan
+    .EXAMPLE
+        Invoke-PnPReScan.ps1 -WaitTime 30
+    .NOTES
+        NAME:      	Invoke-PnPReScan
+        AUTHOR:    	Fredrik Wall, fredrik.powershell@gmail.com
         VERSION:    1.0
+        CREATED:	11/19/2017
 #>
 
 [CmdletBinding()]

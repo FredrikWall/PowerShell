@@ -2,37 +2,28 @@ function Invoke-CleanTemp {
     <#
         .Synopsis
             Will clean local temp folders
-
         .Description
             Will clean local temp folders
-
         .Parameter Force
             Closes running programs from the application array in the function
-
         .Parameter AllUsers
             Will clean temp folders for All Users
-
         .Example
             PS C:\> Invoke-CleanTemp
             Will start the function and try to delete files and folder in the current users temp and
             in the C:\Windows\Temp folder.
-
         .Example
             PS C:\> Invoke-CleanTemp -Force
             Will start the function and closing the applications that are in the applications array
             and then tries to delete files and folder in the current users temp and
             in the C:\Windows\Temp folder.
-
         .Example
             PS C:\> Invoke-CleanTemp -AllUsers
             Will start the function and try to delete files and folder for all users temp folders and
             in the C:\Windows\Temp folder.
-
         .Notes
             NAME:      	Invoke-CleanTemp
-            AUTHOR:    	Fredrik Wall, fredrik@poweradmin.se
-            BLOG:		https://www.fredrikwall.se
-            TWITTER:	walle75
+            AUTHOR:    	Fredrik Wall, fredrik.powershell@gmail.com
             VERSION:    2.0
             CREATED:    04/07/2010
             LASTEDIT:  	26/11/2020
@@ -83,7 +74,8 @@ function Invoke-CleanTemp {
         else {
         }
         
-    } else {
+    }
+    else {
         # Users temp folder
         $UsersTempFolderFilesAndFolders = Get-ChildItem $Env:temp -Recurse
         $UsersTempFolderFilesAndFoldersCount = $UsersTempFolderFilesAndFolders.Count
@@ -107,10 +99,3 @@ function Invoke-CleanTemp {
     else {
     }
 }
-    
-Clear-Host
-
-# To run the function to remove files and folders you need to take away -WhatIf
-Invoke-CleanTemp -Force -WhatIf
-
-#Get-Help Invoke-CleanTemp -Full

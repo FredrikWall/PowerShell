@@ -2,41 +2,30 @@ function Get-Windows10BuildInformation {
     <#
         .SYNOPSIS
             Will get information about the OS Build
-
         .DESCRIPTION
             Will get information about the OS Build from a json file with Windows 10 release information.
             It will provide version, availability date (release date), servicing option and Kb article.
-
         .PARAMETER OSBuildVersion
             Specifies OS Build number.
             Can handle both 19041.630 and 10.0.19041.630 format.
             Without this parameter It will show local computers OS Build version.
-
         .PARAMETER Online
             Will open default browser with the Url to the KB article
-    
         .PARAMETER Force
             If Force parameter are provided the file will be downloaded even if the file is already downloaded.
-    
         .EXAMPLE
             C:\PS> Get-Windows10BuildInformation
             Will show information about the local computers OS build version.
-
         .EXAMPLE
             C:\PS> Get-Windows10BuildInformation -OSBuildVersion "10.0.19041.630"
-        
         .EXAMPLE
             C:\PS> Get-Windows10BuildInformation -OSBuildVersion "19041.630"
-
         .EXAMPLE
             C:\PS> Get-Windows10BuildInformation -OSBuildVersion "19041.630" -Force
-
         .NOTES
             NAME:      	Get-Windows10BuildInformation
+            AUTHOR:    	Fredrik Wall, fredrik.powershell@gmail.com
             VERSION:    1.1
-            AUTHOR:    	Fredrik Wall, fredrik@poweradmin.se
-            BLOG:		http://www.fredrikwall.se
-            TWITTER:	walle75
             CREATED:	19/11/2020
             
             INFO:
@@ -103,6 +92,3 @@ function Get-Windows10BuildInformation {
 
     }
 }
-
-Clear-Host
-Get-Windows10BuildInformation -Online

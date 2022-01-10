@@ -2,28 +2,22 @@ function Get-Windows10ReleaseInformation {
     <#
         .SYNOPSIS
             Will get Windows 10 release Information
-
         .DESCRIPTION
             Will get Windows 10 release Information from Microsoft.
             https://winreleaseinfoprod.blob.core.windows.net/winreleaseinfoprod/en-US.html
-
         .EXAMPLE
             C:\PS> Get-Windows10ReleaseInformation
             Will show all information in list format.
-
         .EXAMPLE
             C:\PS> Get-Windows10ReleaseInformation | ConvertTo-Json
             Will show all information in json format.
-
         .EXAMPLE
             C:\PS> Get-Windows10ReleaseInformation | ConvertTo-Json | Out-File .\Windows10BuildInformation.json
             Will save the json format to a file.
-
         .NOTES
             NAME:      	Get-Windows10ReleaseInformation
-            AUTHOR:    	Fredrik Wall, fredrik@poweradmin.se
-            BLOG:		http://www.fredrikwall.se
-            TWITTER:	walle75
+            AUTHOR:    	Fredrik Wall, fredrik.powershell@gmail.com
+            VERSION:    1.0
             CREATED:	19/11/2020
 
             INFO:
