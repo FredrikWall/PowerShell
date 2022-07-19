@@ -1,9 +1,9 @@
 function Enable-ShowHiddenFiles {
-    <#
+<#
     .SYNOPSIS
         Enabels Show Hidden Files, Folders and Drives in Windows
     .DESCRIPTION
-        Enabels Show Hidden Files, Folders and Drives in Windows
+        Enabels Show Hidden Files, Folders and Drives in Windows on the current user
     .EXAMPLE
         C:\PS> Enable-ShowHiddenFiles
     .NOTES

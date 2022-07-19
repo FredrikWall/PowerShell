@@ -3,7 +3,7 @@ function Disable-ShowHiddenFiles {
     .SYNOPSIS
         Disabels Show Hidden Files, Folders and Drives in Windows
     .DESCRIPTION
-        Disabels Show Hidden Files, Folders and Drives in Windows
+        Disabels Show Hidden Files, Folders and Drives in Windows on the current user
     .EXAMPLE
         C:\PS> Disable-ShowHiddenFiles
     .NOTES
