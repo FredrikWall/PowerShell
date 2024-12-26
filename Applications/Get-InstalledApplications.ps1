@@ -15,8 +15,9 @@ function Get-InstalledApplications {
         .NOTES
             NAME:      	Get-InstalledApplications
             AUTHOR:    	Fredrik Wall, fredrik.powershell@gmail.com
-            VERSION:    1.0
+            VERSION:    1.1
             CREATED:	08/03/2015
+            UPDATED:    26/12/2024
     #>
     [Cmdletbinding()]
     param (
@@ -24,16 +25,18 @@ function Get-InstalledApplications {
         $ApplicationName
     )
 
-    if ($ApplicationName) {
-        Get-ChildItem HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Where-Object -Property DisplayName -match $ApplicationName | Sort-Object -Property DisplayName
-        Get-ChildItem HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Where-Object -Property DisplayName -match $ApplicationName | Sort-Object -Property DisplayName
+    $uninstallPaths = @(
+        "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall",
+        "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
+    )
+
+    foreach ($path in $uninstallPaths) {
+        Get-ChildItem $path | Get-ItemProperty | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Where-Object {
+            if ($ApplicationName) {
+                $_.DisplayName -match $ApplicationName
+            } else {
+                $null -ne $_.DisplayName
+            }
+        } | Sort-Object -Property DisplayName
     }
-    else {
-        Get-ChildItem HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Where-Object -Property DisplayName -ne $null | Sort-Object -Property DisplayName
-        Get-ChildItem HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Where-Object -Property DisplayName -ne $null | Sort-Object -Property DisplayName
-    }
-}
-if (-not(Get-InstalledApplications -ApplicationName "Nisses Application")) {
-    Write-Output "Application not installed"
-    Install-Application
-}
+}AC
