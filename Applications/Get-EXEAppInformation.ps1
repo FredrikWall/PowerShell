@@ -57,5 +57,3 @@ function Get-ExeAppInformation {
         }
     }
 }
-
-Get-ExeAppInformation -Path C:\Users\FRWAL02\Downloads\dotnet-sdk-8.0.416-win-x64.exe
