@@ -1,41 +1,59 @@
 function Get-ExeAppInformation {
     <#
 	.SYNOPSIS
-		Gets Exe Application Information from a EXE file
+		Gets application information from an EXE file.
+
 	.DESCRIPTION
-		This function will check if the selected exe file have the application information that we wants.
+		Retrieves one or more properties (ProductName, ProductVersion, CompanyName, Language) from the file version info of an EXE.
+		Supports pipeline input for Path and multiple properties at once.
+
 	.PARAMETER Path
-		Path to the EXE file
+		Path to the EXE file. Accepts pipeline input.
+
 	.PARAMETER Property
-		The Property that you want to get information from
+		One or more properties to retrieve. Valid values: ProductName, ProductVersion, CompanyName, Language.
+		If omitted, all four properties are returned.
+
 	.EXAMPLE
-		Get-EXEAppInformation -Path "JavaSetup8u144.exe" -Property "ProductName"
-	
-		Java Platform SE 8 U144
+		Get-ExeAppInformation -Path "JavaSetup8u144.exe" -Property ProductName
+
 	.EXAMPLE
-		Get-EXEAppInformation -Path "JavaSetup8u144.exe" -Property "ProductVersion"
-	
-		8.0.1440.1
+		Get-ExeAppInformation -Path "JavaSetup8u144.exe" -Property ProductName,ProductVersion
+
+	.EXAMPLE
+		"JavaSetup8u144.exe" | Get-ExeAppInformation
+
 	.NOTES
-		NAME: 		Get-ExeApplication
-		AUTHOR: 	Fredrik Wall, fredrik.powershell@gmail.com
-		VERSION:	1.2
-		CREATED:	23/01/2016
-	#>
+		NAME:    Get-ExeAppInformation
+		AUTHOR:  Fredrik Wall, wall.fredrik@gmail.com
+		VERSION: 1.3
+        CREATED: 2016-01-23
+		UPDATED: 2025-12-03
+		CHANGES: Pipeline support, multi-property, returns PSCustomObject, improved error handling.
+    #>
     [CmdletBinding()]
-    Param ([Parameter(Mandatory = $true)]
-        $Path,
+    param (
+        [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
+        [string]$Path,
+
         [Parameter(Mandatory = $false)]
-        [ValidateSet("ProductName","ProductVersion","CompanyName","Language")]
-        $Property
+        [ValidateSet("ProductName", "ProductVersion", "CompanyName", "Language")]
+        [string[]]$Property
     )
-    try {
-		
-        $ExeAppInformation = ((Get-Itemproperty -Path $Path).VersionInfo).$($Property)
-        return $ExeAppInformation
-		
-    }
-    catch {
-        throw "Failed to get Exe application information. Error: {0}." -f $_
+
+    process {
+        try {
+            $info = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($Path)
+            $props = @('ProductName', 'ProductVersion', 'CompanyName', 'Language')
+            $selected = if ($Property) { $Property } else { $props }
+            $result = [ordered]@{ Path = $Path }
+            foreach ($p in $selected) {
+                $result[$p] = $info.$p
+            }
+            [PSCustomObject]$result
+        }
+        catch {
+            Write-Error ("Failed to get EXE application information for '{0}': {1}" -f $Path, $_.Exception.Message)
+        }
     }
 }
