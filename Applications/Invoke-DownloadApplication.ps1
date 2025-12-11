@@ -52,5 +52,3 @@ function Invoke-DownloadApplication {
         Write-Output $_.Exception
     }
 }
-
-Invoke-DownloadApplication -Url "https://www.apple.com/itunes/download/win64" -Destination "$env:TEMP\iTunes64Setup.exe"
