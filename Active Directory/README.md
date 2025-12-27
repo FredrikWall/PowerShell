@@ -315,15 +315,10 @@ The LabAD subfolder contains test data files (e.g., gNamesSWEDEN.txt) that can b
 ## Author
 
 **Fredrik Wall**
-- Email: fredrik@poweradmin.se
+- Email: wall.fredrik@gmail.com
 - Twitter: [@walle75](https://twitter.com/walle75)
-- Blog: [http://www.fredrikwall.se](http://www.fredrikwall.se)
+- Blog: [http://www.poweradmin.se](http://www.poweradmin.se)
 - GitHub: [https://github.com/FredrikWall](https://github.com/FredrikWall)
-
-## Version History
-
-- **Version 2.x** (2016): Added pipeline support, improved error handling
-- **Version 1.0** (2012): Initial release
 
 ## License
 
