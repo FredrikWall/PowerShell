@@ -27,12 +27,16 @@ Function Get-LDAPGroup
             
         .NOTES
             NAME:       Get-LDAPGroup
-            AUTHOR:     Fredrik Wall, fredrik@poweradmin.se
+            AUTHOR:     Fredrik Wall, wall.fredrik@gmailcom
             TWITTER:    @walle75
-            BLOG:       http://www.fredrikwall.se
+            BLOG:       http://www.poweradmin.se
             CREATED:    2012-02-12
-            LASTEDIT:   2016-03-07
-            VERSION:    2.1
+			UPDATED:    2016-03-07
+			VERSION:    2.1
+						
+					    2.1 - Added pipeline support
+						1.0 - Initial version
+            
 	
         .LINK
             https://github.com/FredrikWall

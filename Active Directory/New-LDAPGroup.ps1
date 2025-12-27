@@ -22,12 +22,15 @@ Function New-LDAPGroup
         
 	.NOTES
 		NAME:       New-LDAPGroup
-		AUTHOR:     Fredrik Wall, fredrik@poweradmin.se
+		AUTHOR:     Fredrik Wall, wall.fredrik@gmailcom
 		TWITTER:    @walle75
-		BLOG:       http://www.fredrikwall.se
+		BLOG:       http://www.poweradmin.se
 		CREATED:    2012-01-15
-		LASTEDIT:   2016-03-09
+		UPDATED:   2016-03-09
 		VERSION:    2.1
+					
+					2.1 - Added error handling
+					1.0 - Initial version
 	
 	.LINK
 		https://github.com/FredrikWall
