@@ -16,42 +16,28 @@ function Format-Name {
         PS C:\> "fredrik" | Format-Name
 	.NOTES
         NAME:      	Format-Name
-        AUTHOR:    	Fredrik Wall, fredrik.powershell@gmail.com
-        VERSION: 	1.3
-        CREATED:	11/03/2017
-        CHANGED:    12/28/2021
-
-        Changes:
-        1.3
-        Some cleanup of the code
+        AUTHOR:    	Fredrik Wall, wall.fredrik@gmail.com
+        CREATED:	2017-03-11
+        UPDATED:    2025-12-27
+        VERSION: 	1.4
+                    1.4 - Optimized code: reduced redundant operations, used -split operator,
+                        removed unnecessary variables, used TextInfo for title case conversion
+                    1.3 - Some cleanup of the code
     #>
 	
     [CmdletBinding()]
     param
     (
         [Parameter(ValueFromPipeline, Mandatory = $true)]
-        $Name
+        [string]$Name
     )
 	
-    $Name = $Name.Trim()
-	
-    # If It's double name or more
-    if ($Name.IndexOf(" ") -ne "-1") {
-		
-        $TheName = $Name.Split(" ")
-        $TheNames = @()
-		
-        foreach ($MyName in $TheName) {
-            $MyName = "$((($MyName).Trim()).ToUpper().Substring(0, 1))$((($MyName).Trim()).ToLower().Substring(1))"
-            $TheNames += $MyName
-        }
-		
-        [string]$FixedName = $TheNames
-        Return $FixedName
-    }
-    else {
-        $MyName = "$((($Name).Trim()).ToUpper().Substring(0, 1))$((($Name).Trim()).ToLower().Substring(1))"
-        [string]$FixedName = $MyName
-        Return $FixedName
+    process {
+        # Use TextInfo for proper title casing
+        $textInfo = (Get-Culture).TextInfo
+        
+        # Trim and convert to title case in one operation
+        # This handles single and multiple names efficiently
+        $textInfo.ToTitleCase($Name.Trim().ToLower())
     }
 }
