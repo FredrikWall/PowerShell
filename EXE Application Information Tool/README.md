@@ -115,22 +115,6 @@ Verify version information is correctly embedded in compiled executables.
 ### How It Works
 The tool uses the .NET `System.Diagnostics.FileVersionInfo` class to read the version resource information embedded in Windows executables. This is the same information visible in Windows Explorer when you right-click a file and view Properties > Details.
 
-### Code Function
-The core functionality is also available as a standalone PowerShell function in:
-- `Get-ExeAppInformation_function.ps1`
-
-**Function Usage:**
-```powershell
-# Load the function
-. .\Get-ExeAppInformation_function.ps1
-
-# Get specific property
-Get-ExeAppInformation -FilePath "C:\Path\To\Application.exe" -Property "ProductName"
-
-# Example output
-Java Platform SE 8 U144
-```
-
 ### Supported File Types
 - Windows executable files (`.exe`)
 - Files must contain embedded version information resource
@@ -186,7 +170,7 @@ The application uses embedded XAML for UI definition. Edit the `$XAML` variable 
 ## Author
 
 **Fredrik Wall**
-- Email: fredrik@poweradmin.se
+- Email: wall.fredrik@gmail.com
 - Blog: [www.poweradmin.se](http://www.poweradmin.se)
 - Twitter: [@walle75](https://twitter.com/walle75)
 - GitHub: [https://github.com/FredrikWall](https://github.com/FredrikWall)
