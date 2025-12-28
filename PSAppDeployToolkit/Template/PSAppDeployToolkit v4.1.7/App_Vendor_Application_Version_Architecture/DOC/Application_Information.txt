@@ -1,0 +1,46 @@
+[Main data]
+Application name................: <ApplicationName>
+Application version.............: <ApplicationVersion>
+Application language............: EN
+Application vendor..............: <ApplicationVendor>
+Application architecture........: x64
+Package creator.................: <PackageCreator>
+Package creation date...........: <PackageDate>
+
+[Package details]
+Upgrades previous version(s)....: [*] Yes [ ] No
+
+Packaging method................: [ ] MSI
+                                  [ ] App-V 5.1
+                                  [ ] ThinApp 5.2.3
+                                  [*] PSAppDeployToolkit v4.1.7
+
+MSI file........................: 
+MST file(s).....................: 
+
+[Installation details]
+INSTALL command.................: Invoke-AppDeployToolkit.exe -DeploymentType Install -DeployMode Interactive
+UNINSTALL command...............: Invoke-AppDeployToolkit.exe -DeploymentType Uninstall
+
+Allow User to Interact (Intune).: [*] Yes [ ] No
+Kill process dialog.............: [*] Yes [*] No
+RELOGON required................: [ ] Yes [*] No
+                                    	  [ ] SCCM
+                                    	  [ ] AppDeploy
+REBOOT required.................: [ ] Yes [*] No
+                                    	  [ ] SCCM
+                                    	  [ ] AppDeploy
+Verified platform(s):
+Windows 10  x64.................: [ ] Yes [*] No
+Windows 11  x64.................: [ ] Yes [*] No
+
+Detection method (Clause).......: [ ] MSI Product Code:
+                                  [ ] File system     : 
+                                  [ ] Registry key    : 
+
+Dependencies....................: 
+
+[Technical comments]
+
+
+[Additional comments]

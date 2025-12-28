@@ -1,0 +1,140 @@
+{
+    "PSADT Add Custom Detection Registry Key": {
+        "prefix": "PSADT",
+        "body": [
+            "# Custom Application Detection Registry Key",
+            "# Change CustomerName to Customer's name",
+            "\\$CustomerName = \"CustomerName\"",
+            "",
+            "# Customer Key Name in the format: AppVendor_AppName_AppVersion_AppArch",
+            "\\$CustomerKeyName = \"$(\\$adtSession.AppVendor)_$(\\$adtSession.AppName)_$(\\$adtSession.AppVersion)_$(\\$adtSession.AppArch)\"",
+            "",
+            "# Create the registry key to indicate the application is installed",
+            "# Path: HKEY_LOCAL_MACHINE\\SOFTWARE\\CustomerName\\Applications\\CustomerKeyName",
+            "# Value Name: Installed",
+            "Set-ADTRegistryKey -LiteralPath \"HKEY_LOCAL_MACHINE\\SOFTWARE\\\\$(\\$CustomerName)\\Applications\\\\$(\\$CustomerKeyName)\" -Name 'Installed' -Type 'DWord' -Value '1'"
+        ],
+        "description": "PSADT Add Custom Detection Registry Key"
+    },
+    "PSADT AppScriptAuthor": {
+        "prefix": "PSADT",
+        "body": [
+            "AuthorName",
+            ""
+        ],
+        "description": "PSADT AppScriptDate"
+    },
+    "PSADT AppScriptDate": {
+        "prefix": "PSADT",
+        "body": [
+            "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+            ""
+        ],
+        "description": "PSADT AppScriptDate"
+    },
+    "PSADT AppVendor Variable": {
+        "prefix": "PSADT",
+        "body": [
+            "$(\\$adtSession.AppVendor)"
+        ],
+        "description": "PSADT AppVendor Variable"
+    },
+    "PSADT Copy files from DirSupportFIles": {
+        "prefix": "PSADT",
+        "body": [
+            "# Copy files from DirSupportFiles",
+            "Copy-ADTFile -Path \"$($adtSession.DirSupportFiles)\\*\" -Destination \"C:\\some\\random\\file\\path\"",
+            ""
+        ],
+        "description": "PSADT Copy files from DirSupportFIles"
+    },
+    "PSADT Copy files to all users profiles": {
+        "prefix": "PSADT",
+        "body": [
+            "# Copy files to all users profiles",
+            "Copy-ADTFileToUserProfiles -Path \"$($adtSession.DirSupportFiles)\\global.ini\" -Destination \"AppData\\Roaming\\ApplicationName\" -Recurse"
+        ],
+        "description": "PSADT Copy files to all users profiles"
+    },
+    "PSADT Display message at the end of the install": {
+        "prefix": "PSADT",
+        "body": [
+            "## Display a message at the end of the install.",
+            "if (!adtSession.UseDefaultMsi) {",
+            "    $CustomName = \"$(\\$adtSession.AppVendor) $(\\$adtSession.AppName) $(\\$adtSession.AppVersion)\"",
+            "    Show-ADTInstallationPrompt -Message \"Installation of \\$CustomName is complete.\" -ButtonRightText 'OK' -Icon Information -NoWait",
+            "}"
+        ],
+        "description": "PSADT Display message at the end of the install"
+    },
+    "PSADT Install Application": {
+        "prefix": "PSADT",
+        "body": [
+            "# Install application",
+            "# Run the exe installer silently",
+            "Start-ADTProcess -FilePath 'setup.exe' -ArgumentList '/SILENT'",
+            "",
+            "# Run the msi installer with a transforms file",
+            "Start-ADTMsiProcess -Action 'Install' -FilePath 'setup.msi' -Transforms 'transform.mst' -ArgumentList '/QN'",
+            "",
+            "# Run the msp patch installer",
+            "Start-ADTMspProcess -FilePath 'patchfile.msp'",
+            ""
+        ],
+        "description": "PSADT Install Application"
+    },
+    "PSADT Remove custom application detection registry key": {
+        "prefix": "PSADT",
+        "body": [
+            "# Remove custom application detection registry key",
+            "# Change CustomerName to Customer's name",
+            "\\$CustomerName = \"CustomerName\"",
+            "",
+            "# Customer Key Name in the format: AppVendor_AppName_AppVersion_AppArch",
+            "\\$CustomerKeyName = \"$(\\$adtSession.AppVendor)_$(\\$adtSession.AppName)_$(\\$adtSession.AppVersion)_$(\\$adtSession.AppArch)\"",
+            "Remove-ADTRegistryKey -Path \"HKEY_LOCAL_MACHINE\\SOFTWARE\\\\$(\\$CustomerName)\\Applications\\\\$(\\$CustomerKeyName)\""
+        ],
+        "description": "PSADT Remove custom application detection registry key"
+    },
+    "PSADT Remove registry key": {
+        "prefix": "PSADT",
+        "body": [
+            "# Remove registry key for old application",
+            "# Change the path to the registry key you want to remove",
+            "Remove-ADTRegistryKey -Path \"HKEY_LOCAL_MACHINE\\SOFTWARE\\CustomerName\\Applications\\{C98A77F0-782C-42BF-9805-F963E5064E9B}\"",
+            ""
+        ],
+        "description": "PSADT Remove registry key"
+    },
+    "PSADT Uninstall Application": {
+        "prefix": "PSADT",
+        "body": [
+            "# Uninstall previous application",
+            "    ",
+            "# Uninstall MSI uninstaller listed in Installed Apps",
+            "# Wildcard are valid but be aware that it can uninstall applications with similar names",
+            "Uninstall-ADTApplication -Name 'Application Name'",
+            "",
+            "# Uninstall with an uninstaller and Get-ADTApplication check  ",
+            "if (Get-ADTApplication -Name 'Adobe After Effects') {",
+            "    Start-ADTProcess -FilePath 'AdobeUninstaller.exe' -ArgumentList '--products=XXXX --skipNotInstalled' -WindowStyle 'Hidden'",
+            "}",
+            "    ",
+            "# Uninstall with uninstaller file and file check",
+            "if (Test-Path -Path \"C:\\Program Files\\ApplicationPath\\uninstall.exe\") {",
+            "    Start-ADTProcess -FilePath \"C:\\Program Files\\ApplicationPath\\uninstall.exe\" -ArgumentList '/S'",
+            "}",
+            ""
+        ],
+        "description": "PSADT Pre-Install Uninstall Application"
+    },
+    "PSADT Remove Desktop Shortcut": {
+        "prefix": "PSADT",
+        "body": [
+            "# Remove Desktop Shortcut",
+            "Remove-ADTFile -path \"C:\\Users\\Public\\Desktop\\ApplicationName.lnk\"",
+            ""
+        ],
+        "description": "PSADT Remove Desktop Shortcut"
+    }
+}
