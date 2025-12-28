@@ -1,7 +1,0 @@
-{
-    "editor.tabCompletion": "on",
-    "files.defaultLanguage": "powershell",
-    "editor.mouseWheelZoom": true,
-    "powershell.integratedConsole.focusConsoleOnExecute": false,
-    "terminal.integrated.fontSize": 22
-}
