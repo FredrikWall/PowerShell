@@ -101,5 +101,3 @@ function Get-ExeAppInformation {
         }
     }
 }
-
-Get-ExeAppInformation -Path C:\Users\wallf\Downloads\FileZilla_3.69.1_win64_sponsored2-setup.exe -All
