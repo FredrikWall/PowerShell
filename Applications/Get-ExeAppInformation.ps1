@@ -14,43 +14,85 @@ function Get-ExeAppInformation {
 		One or more properties to retrieve. Valid values: ProductName, ProductVersion, CompanyName, Language.
 		If omitted, all four properties are returned.
 
-	.EXAMPLE
-		Get-ExeAppInformation -Path "JavaSetup8u144.exe" -Property ProductName
+	.PARAMETER All
+		Returns all available FileVersionInfo properties.
 
 	.EXAMPLE
-		Get-ExeAppInformation -Path "JavaSetup8u144.exe" -Property ProductName,ProductVersion
+		Get-ExeAppInformation -Path "C:\Setup\JavaSetup8u144.exe"
+		Returns default properties (ProductName, ProductVersion, CompanyName, Language) for the specified EXE.
 
 	.EXAMPLE
-		"JavaSetup8u144.exe" | Get-ExeAppInformation
+		Get-ExeAppInformation -Path "C:\Setup\JavaSetup8u144.exe" -Property ProductName
+		Returns only the ProductName property.
+
+	.EXAMPLE
+		Get-ExeAppInformation -Path "C:\Setup\JavaSetup8u144.exe" -Property ProductName, FileVersion, CompanyName
+		Returns multiple specific properties.
+
+	.EXAMPLE
+		"C:\Setup\JavaSetup8u144.exe" | Get-ExeAppInformation
+		Uses pipeline input to get default properties for the EXE.
+
+	.EXAMPLE
+		Get-ChildItem "C:\Setup\*.exe" | Get-ExeAppInformation -Property ProductName, ProductVersion
+		Gets product info for all EXE files in a folder.
+
+	.EXAMPLE
+		Get-ExeAppInformation -Path "C:\Setup\JavaSetup8u144.exe" -All
+		Returns all available FileVersionInfo properties including FileVersion, FileDescription, LegalCopyright, etc.
+
+	.EXAMPLE
+		Get-ChildItem "C:\Setup\*.exe" | Get-ExeAppInformation -All | Export-Csv -Path "C:\Reports\ExeInventory.csv" -NoTypeInformation
+		Creates a CSV report of all EXE files with complete version information.
 
 	.NOTES
-		NAME:    Get-ExeAppInformation
-		AUTHOR:  Fredrik Wall, wall.fredrik@gmail.com
-		VERSION: 1.3
-        CREATED: 2016-01-23
-		UPDATED: 2025-12-03
-		CHANGES: Pipeline support, multi-property, returns PSCustomObject, improved error handling.
+		Author:  Fredrik Wall
+		Email:   wall.fredrik@gmail.com
+		Created: 2016-01-23
+		Updated: 2025-12-29
+		Version: 1.4
+		
+		Changelog:
+		1.4 (2025-12-29) - Added -All switch to retrieve all FileVersionInfo properties
+		1.3 (2025-12-03) - Added error handling and improved output
+		1.2              - Added support for pipeline input
+		1.1              - Added support for multiple properties
+		1.0 (2016-01-23) - Initial release
+	
+	.LINK
+		https://github.com/FredrikWall/PowerShell/tree/master/Applications
     #>
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'Default')]
     param (
         [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
         [string]$Path,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Default')]
         [ValidateSet("ProductName", "ProductVersion", "CompanyName", "Language")]
-        [string[]]$Property
+        [string[]]$Property,
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'All')]
+        [switch]$All
     )
 
     process {
         try {
             $info = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($Path)
-            $props = @('ProductName', 'ProductVersion', 'CompanyName', 'Language')
-            $selected = if ($Property) { $Property } else { $props }
-            $result = [ordered]@{ Path = $Path }
-            foreach ($p in $selected) {
-                $result[$p] = $info.$p
+            
+            if ($All) {
+                # Return all FileVersionInfo properties
+                $info | Select-Object -Property *
             }
-            [PSCustomObject]$result
+            else {
+                # Return specific properties
+                $props = @('ProductName', 'ProductVersion', 'CompanyName', 'Language')
+                $selected = if ($Property) { $Property } else { $props }
+                $result = [ordered]@{ Path = $Path }
+                foreach ($p in $selected) {
+                    $result[$p] = $info.$p
+                }
+                [PSCustomObject]$result
+            }
         }
         catch {
             Write-Error ("Failed to get EXE application information for '{0}': {1}" -f $Path, $_.Exception.Message)
