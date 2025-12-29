@@ -48,6 +48,8 @@ function Get-ExeAppInformation {
 	.NOTES
 		Author:  Fredrik Wall
 		Email:   wall.fredrik@gmail.com
+        Blog:    www.poweradmin.se
+        Twitter: @walle75
 		Created: 2016-01-23
 		Updated: 2025-12-29
 		Version: 1.4
@@ -99,3 +101,5 @@ function Get-ExeAppInformation {
         }
     }
 }
+
+Get-ExeAppInformation -Path C:\Users\wallf\Downloads\FileZilla_3.69.1_win64_sponsored2-setup.exe -All
