@@ -34,18 +34,19 @@ function Get-GivenName
         Get-GivenName -Country ALL
 	
 	.NOTES
-		NAME:      	Get-GivenName
-		AUTHOR:    	Fredrik Wall, wall.fredrik@gmail.com
-		BLOG:		https://www.poweradmin.se
-		TWITTER:	walle75
-		CREATED:	2009-12-24
-		UPDATED:  	2025-12-28
-        VERSION:    4.0
-
-                    4.0 - Changed to use names.json file instead of individual TXT files, added validation for Country parameter
-                    3.2 - Added support for Denmark, Finland, Norway
-                    2.1 - Changed UK to England and Wales
-                    1.0 - Initial version
+		Author:  Fredrik Wall
+		Email:   wall.fredrik@gmail.com
+		Blog:    www.poweradmin.se
+		Twitter: @walle75
+		Created: 2009-12-24
+		Updated: 2025-12-30
+		Version: 4.0
+		
+		Changelog:
+		4.0 (2025-12-28) - Changed to use names.json file instead of individual TXT files, added validation for Country parameter
+		3.2              - Added support for Denmark, Finland, Norway
+		2.1              - Changed UK to England and Wales
+		1.0 (2009-12-24) - Initial version
 
 #>	
 	[CmdletBinding()]

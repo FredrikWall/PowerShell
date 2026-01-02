@@ -15,14 +15,18 @@ function Format-Name {
     .EXAMPLE
         PS C:\> "fredrik" | Format-Name
 	.NOTES
-        NAME:      	Format-Name
-        AUTHOR:    	Fredrik Wall, wall.fredrik@gmail.com
-        CREATED:	2017-03-11
-        UPDATED:    2025-12-27
-        VERSION: 	1.4
-                    1.4 - Optimized code: reduced redundant operations, used -split operator,
-                        removed unnecessary variables, used TextInfo for title case conversion
-                    1.3 - Some cleanup of the code
+        Author:  Fredrik Wall
+        Email:   wall.fredrik@gmail.com
+        Blog:    www.poweradmin.se
+        Twitter: @walle75
+        Created: 2017-03-11
+        Updated: 2025-12-30
+        Version: 1.4
+        
+        Changelog:
+        1.4 (2025-12-27) - Optimized code: reduced redundant operations, used -split operator, removed unnecessary variables, used TextInfo for title case conversion
+        1.3              - Some cleanup of the code
+        1.0 (2017-03-11) - Initial version
     #>
 	
     [CmdletBinding()]

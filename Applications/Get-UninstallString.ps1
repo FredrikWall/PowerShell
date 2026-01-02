@@ -1,24 +1,47 @@
 function Get-UninstallString {
     <#
-        .SYNOPSIS
-            Get uninstall string/strings from the local computer
-        .DESCRIPTION
-            Get uninstall string/strings from the local computer.
-            These are the uninstall strings from the manufacturer.
-            Most of the time they are not silent.
-        .PARAMETER ApplicationName
-            The application you want to get the uninstall string to
-        .EXAMPLE
-            C:\PS> Get-UninstallString
-            Will show all uninstall strings on the local computer
-        .EXAMPLE
-            C:\PS> Get-UninstallString -ApplicationName Chrome
-            Will show the uninstall string for Chrome if Chrome is installed on the local computer            
-        .NOTES
-            NAME:      	Get-UninstallString
-            AUTHOR:    	Fredrik Wall, fredrik.powershell@gmail.com
-            VERSION:    1.0
-            CREATED:	08/01/2015
+    .SYNOPSIS
+        Get uninstall string(s) from the local computer
+    
+    .DESCRIPTION
+        Retrieves uninstall strings from the Windows registry for installed applications.
+        These are the uninstall strings provided by the manufacturer and are typically
+        not silent uninstall commands. Searches both 64-bit and 32-bit registry locations.
+    
+    .PARAMETER ApplicationName
+        The application name to search for. Supports wildcard matching.
+        If not specified, returns uninstall strings for all installed applications.
+    
+    .EXAMPLE
+        Get-UninstallString
+        Displays all uninstall strings for applications on the local computer
+    
+    .EXAMPLE
+        Get-UninstallString -ApplicationName Chrome
+        Displays the uninstall string for Chrome if installed on the local computer
+    
+    .EXAMPLE
+        Get-UninstallString -ApplicationName "Microsoft*"
+        Displays uninstall strings for all Microsoft applications
+    
+    .INPUTS
+        None. You cannot pipe objects to Get-UninstallString.
+    
+    .OUTPUTS
+        PSCustomObject with DisplayName and UninstallString properties
+    
+    .NOTES
+        Author:  Fredrik Wall
+        Email:   wall.fredrik@gmail.com
+        Blog:    www.poweradmin.se
+        Twitter: @walle75
+        Created: 2015-08-01
+        Updated: 2025-12-31
+        Version: 1.1
+        
+        Changelog:
+        1.1 (2025-12-31) - Updated comment-based help to modern format
+        1.0 (2015-08-01) - Initial version
     #>
     [Cmdletbinding()]
     param (
@@ -35,4 +58,3 @@ function Get-UninstallString {
         Get-ChildItem HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Select-Object DisplayName, UninstallString | Where-Object -Property DisplayName -ne $null | Sort-Object -Property DisplayName
     }
 }
-Get-UninstallString -ApplicationName Chrome

@@ -39,6 +39,41 @@
         ],
         "description": "PSADT AppVendor Variable"
     },
+    "PSADT AppName Variable": {
+        "prefix": "PSADT",
+        "body": [
+            "$(\\$adtSession.AppName)"
+        ],
+        "description": "PSADT AppName Variable"
+    },
+    "PSADT AppVersion Variable": {
+        "prefix": "PSADT",
+        "body": [
+            "$(\\$adtSession.AppVersion)"
+        ],
+        "description": "PSADT AppVersion Variable"
+    },
+    "PSADT AppArch Variable": {
+        "prefix": "PSADT",
+        "body": [
+            "$(\\$adtSession.AppArch)"
+        ],
+        "description": "PSADT AppArch Variable"
+    },
+    "PSADT DirFiles Variable": {
+        "prefix": "PSADT",
+        "body": [
+            "$(\\$adtSession.DirFiles)"
+        ],
+        "description": "PSADT DirFiles Variable"
+    },
+    "PSADT DirSupportFiles Variable": {
+        "prefix": "PSADT",
+        "body": [
+            "$(\\$adtSession.DirSupportFiles)"
+        ],
+        "description": "PSADT DirSupportFiles Variable"
+    },
     "PSADT Copy files from DirSupportFIles": {
         "prefix": "PSADT",
         "body": [
@@ -82,6 +117,96 @@
             ""
         ],
         "description": "PSADT Install Application"
+    },
+    "PSADT Install EXE": {
+        "prefix": "PSADT",
+        "body": [
+            "# Install an EXE",
+            "Start-ADTProcess -FilePath 'setup.exe' -ArgumentList '/s'",
+            ""
+        ],
+        "description": "PSADT Install EXE"
+    },
+    "PSADT Install EXE with hidden window": {
+        "prefix": "PSADT",
+        "body": [
+            "# Install an EXE with hidden window",
+            "Start-ADTProcess -FilePath 'setup.exe' -ArgumentList '/s' -WindowStyle 'Hidden'",
+            ""
+        ],
+        "description": "PSADT Install EXE with hidden window"
+    },
+    "PSADT Install EXE from DirFiles": {
+        "prefix": "PSADT",
+        "body": [
+            "# Install an EXE from DirFiles subfolder",
+            "Start-ADTProcess -FilePath \"$(\\$adtSession.DirFiles)\\\\<ApplicationName>\\\\setup.exe\" -ArgumentList '/s'",
+            ""
+        ],
+        "description": "PSADT Install EXE from DirFiles"
+    },
+    "PSADT Install EXE from DirFiles with hidden window": {
+        "prefix": "PSADT",
+        "body": [
+            "# Install an EXE from DirFiles subfolder with hidden window",
+            "Start-ADTProcess -FilePath \"$(\\$adtSession.DirFiles)\\\\<ApplicationName>\\\\setup.exe\" -ArgumentList '/s' -WindowStyle 'Hidden'",
+            ""
+        ],
+        "description": "PSADT Install EXE from DirFiles with hidden window"
+    },
+    "PSADT Install MSI": {
+        "prefix": "PSADT",
+        "body": [
+            "# Install an MSI",
+            "Start-ADTMsiProcess -Action 'Install' -FilePath 'setup.msi' -ArgumentList '/QN'",
+            ""
+        ],
+        "description": "PSADT Install MSI"
+    },
+    "PSADT Install MSI from DirFiles": {
+        "prefix": "PSADT",
+        "body": [
+            "# Install an MSI from DirFiles subfolder",
+            "Start-ADTMsiProcess -Action 'Install' -FilePath \"$(\\$adtSession.DirFiles)\\\\<ApplicationName>\\\\setup.msi\" -ArgumentList '/QN'",
+            ""
+        ],
+        "description": "PSADT Install MSI from DirFiles"
+    },
+    "PSADT Install MSI with MST": {
+        "prefix": "PSADT",
+        "body": [
+            "# Install an MSI with a MST (transforms) file",
+            "Start-ADTMsiProcess -Action 'Install' -FilePath 'setup.msi' -Transforms 'setup.mst' -ArgumentList '/QN'",
+            ""
+        ],
+        "description": "PSADT Install MSI with MST"
+    },
+    "PSADT Install MSI with MST from DirFiles": {
+        "prefix": "PSADT",
+        "body": [
+            "# Install an MSI with MST from DirFiles subfolder",
+            "Start-ADTMsiProcess -Action 'Install' -FilePath \"$(\\$adtSession.DirFiles)\\\\<ApplicationName>\\\\setup.msi\" -Transforms \"$(\\$adtSession.DirFiles)\\\\<ApplicationName>\\\\setup.mst\" -ArgumentList '/QN'",
+            ""
+        ],
+        "description": "PSADT Install MSI with MST from DirFiles"
+    },
+    "PSADT Install MSP": {
+        "prefix": "PSADT",
+        "body": [
+            "# Install an MSP (patch)",
+            "Start-ADTMspProcess -FilePath 'patch.msp'",
+            ""
+        ],
+        "description": "PSADT Install MSP"
+    },
+    "PSADT Install MSP from DirFiles": {
+        "prefix": "PSADT",
+        "body": [
+            "# Install an MSP from DirFiles subfolder",
+            "Start-ADTMspProcess -FilePath \"$(\\$adtSession.DirFiles)\\\\<ApplicationName>\\\\patch.msp\"",
+            ""
+        ],
+        "description": "PSADT Install MSP from DirFiles"
     },
     "PSADT Remove custom application detection registry key": {
         "prefix": "PSADT",
@@ -127,6 +252,46 @@
             ""
         ],
         "description": "PSADT Pre-Install Uninstall Application"
+    },
+    "PSADT Uninstall MSI": {
+        "prefix": "PSADT",
+        "body": [
+            "# Uninstall an MSI",
+            "Uninstall-ADTApplication -Name '<ApplicationName>'",
+            ""
+        ],
+        "description": "PSADT Uninstall MSI"
+    },
+    "PSADT Uninstall with EXE": {
+        "prefix": "PSADT",
+        "body": [
+            "# Uninstall with an EXE",
+            "Start-ADTProcess -FilePath 'uninstaller.exe' -ArgumentList '/S' -WindowStyle 'Hidden'",
+            ""
+        ],
+        "description": "PSADT Uninstall with EXE"
+    },
+    "PSADT Uninstall with EXE and Get-ADTApplication check": {
+        "prefix": "PSADT",
+        "body": [
+            "# Uninstall with EXE and Get-ADTApplication check",
+            "if (Get-ADTApplication -Name '<ApplicationName>') {",
+            "    Start-ADTProcess -FilePath 'uninstaller.exe' -ArgumentList '/S' -WindowStyle 'Hidden'",
+            "}",
+            ""
+        ],
+        "description": "PSADT Uninstall with EXE and Get-ADTApplication check"
+    },
+    "PSADT Uninstall with EXE and Test-Path check": {
+        "prefix": "PSADT",
+        "body": [
+            "# Uninstall with EXE and Test-Path check",
+            "if (Test-Path -Path \"C:\\\\Program Files\\\\<ApplicationName>\\\\uninstall.exe\") {",
+            "    Start-ADTProcess -FilePath \"C:\\\\Program Files\\\\<ApplicationName>\\\\uninstall.exe\" -ArgumentList '/S' -WindowStyle 'Hidden'",
+            "}",
+            ""
+        ],
+        "description": "PSADT Uninstall with EXE and Test-Path check"
     },
     "PSADT Remove Desktop Shortcut": {
         "prefix": "PSADT",

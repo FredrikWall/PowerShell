@@ -1,42 +1,61 @@
 function Get-MSIAppInformation {
 	<#
 	.SYNOPSIS
-		Retrieve properties from an MSI file.
-
+		Retrieve properties from an MSI file
+	
 	.DESCRIPTION
 		Opens an MSI database and reads properties from the Property table.
-		Returns PSCustomObject(s) with `MSIPath`, `Property` and `Value`.
-
-		If `-Property` is provided with a single name, a single object is
-		returned for that property. If `-Property` is provided with multiple
+		Returns PSCustomObject(s) with MSIPath, Property and Value.
+		
+		If -Property is provided with a single name, a single object is
+		returned for that property. If -Property is provided with multiple
 		names, a single aggregated object is returned with each requested
-		property as a field. Without `-Property`, the function streams all
+		property as a field. Without -Property, the function streams all
 		properties found in the MSI as individual objects.
-
+	
 	.PARAMETER FilePath
 		Path to the MSI file. Accepts pipeline input as a string or a
-		FileInfo object.
-
+		FileInfo object. Can also use the alias 'Path'.
+	
 	.PARAMETER Property
 		Optional. One or more MSI property names to retrieve (e.g. ProductName,
-		ProductVersion, ProductCode). When omitted all properties are streamed.
-
+		ProductVersion, ProductCode). When omitted, all properties are streamed.
+	
 	.EXAMPLE
 		Get-MSIAppInformation -FilePath 'C:\temp\MyApp.msi' -Property ProductName
-
+		Retrieves the ProductName property from the MSI file
+	
 	.EXAMPLE
 		Get-MSIAppInformation -FilePath 'C:\temp\MyApp.msi' -Property ProductName,ProductVersion
-
+		Retrieves multiple properties and returns them as an aggregated object
+	
 	.EXAMPLE
 		'C:\temp\MyApp.msi' | Get-MSIAppInformation
-
+		Pipeline example that retrieves all properties from the MSI file
+	
+	.EXAMPLE
+		Get-ChildItem C:\Installers\*.msi | Get-MSIAppInformation -Property ProductName,ProductVersion
+		Retrieves specific properties from multiple MSI files
+	
+	.INPUTS
+		System.String or System.IO.FileInfo. You can pipe file paths or FileInfo objects.
+	
+	.OUTPUTS
+		PSCustomObject with Property and Value, or aggregated properties, or individual property objects
+	
 	.NOTES
-		NAME:    Get-MSIAppInformation
-        AUTHOR:  Fredrik Wall, wall.fredrik@gmail.com
-        VERSION: 1.4
-        CREATED: 2014-12-05
-		UPDATED: 2025-12-03
-		CHANGES: Pipeline support, aggregated return for multiple properties, COM cleanup.
+		Author:  Fredrik Wall
+		Email:   wall.fredrik@gmail.com
+		Blog:    www.poweradmin.se
+		Twitter: @walle75
+		Created: 2014-12-05
+		Updated: 2025-12-31
+		Version: 1.5
+		
+		Changelog:
+		1.5 (2025-12-31) - Updated comment-based help to modern format
+		1.4 (2025-12-03) - Pipeline support, aggregated return for multiple properties, COM cleanup
+		1.0 (2014-12-05) - Initial version
 	#>
 
 	[CmdletBinding()]

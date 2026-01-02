@@ -1,40 +1,57 @@
 function Get-InstalledApplications {
     <#
     .SYNOPSIS
-        Retrieve installed applications from the local computer's uninstall registry keys.
-
+        Retrieve installed applications from the local computer's uninstall registry keys
+    
     .DESCRIPTION
         Enumerates the standard uninstall registry locations (both 64-bit and
         32-bit WOW6432Node) and returns structured PSCustomObjects describing
         installed software entries. The function is pipeline-friendly and
         de-duplicates entries that appear in multiple registry hives.
-
+    
     .PARAMETER ApplicationName
-        Optional. A regex or substring to match against `DisplayName`. Accepts
-        pipeline input.
-
+        Optional. A regex or substring to match against DisplayName. Accepts
+        pipeline input. If not specified, returns all installed applications.
+    
     .PARAMETER ExactMatch
-        When specified, matches `DisplayName` using exact (case-insensitive)
+        When specified, matches DisplayName using exact (case-insensitive)
         equality instead of regex matching.
-
+    
     .EXAMPLE
         Get-InstalledApplications
-        Returns all installed applications.
-
+        Returns all installed applications
+    
     .EXAMPLE
         Get-InstalledApplications -ApplicationName Chrome
-        Returns installed applications whose DisplayName matches 'Chrome'.
-
+        Returns installed applications whose DisplayName matches 'Chrome'
+    
+    .EXAMPLE
+        Get-InstalledApplications -ApplicationName "Google Chrome" -ExactMatch
+        Returns only applications with the exact name "Google Chrome"
+    
     .EXAMPLE
         'Adobe' | Get-InstalledApplications
-        Pipeline example where the input is treated as `-ApplicationName`.
-
+        Pipeline example where the input is treated as ApplicationName
+    
+    .INPUTS
+        System.String. You can pipe application names to Get-InstalledApplications.
+    
+    .OUTPUTS
+        PSCustomObject with DisplayName, DisplayVersion, Publisher, and InstallDate properties
+    
     .NOTES
-        NAME:    Get-InstalledApplications
-        AUTHOR:  Fredrik Wall, wall.fredrik@gmail.com
-        VERSION: 1.5
-        CREATED: 2015-03-08
-        UPDATED: 2025-12-03
+        Author:  Fredrik Wall
+        Email:   wall.fredrik@gmail.com
+        Blog:    www.poweradmin.se
+        Twitter: @walle75
+        Created: 2015-03-08
+        Updated: 2025-12-31
+        Version: 1.6
+        
+        Changelog:
+        1.6 (2025-12-31) - Updated comment-based help to modern format
+        1.5 (2025-12-03) - Performance improvements and de-duplication
+        1.0 (2015-03-08) - Initial version
     #>
 
     [CmdletBinding()]

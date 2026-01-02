@@ -6,15 +6,18 @@ function Get-SurName
 
 	.DESCRIPTION
 		This function will get a random surname from a list of surnames in
-		England and Wales, Norway, Sweden and USA.
+		England and Wales, Finland, Norway, Sweden and USA.
         Uses the names.json file for data storage.
          
 	.PARAMETER Country
         Choose from which country you want to get a surname or use ALL for all lists.
-        Valid options: ENGLANDWALES, Norway, Sweden, USA, ALL
+        Valid options: ENGLANDWALES, Finland, Norway, Sweden, USA, ALL
     
 	.EXAMPLE 
 		Get-Surname -Country ENGLANDWALES
+		
+	.EXAMPLE 
+		Get-Surname -Country Finland
 		
 	.EXAMPLE 
 		Get-Surname -Country Norway
@@ -29,18 +32,20 @@ function Get-SurName
         Get-Surname -Country ALL
 	
 	.NOTES
-		NAME:      	Get-Surname
-		AUTHOR:    	Fredrik Wall, wall.fredrik@gmail.com
-		BLOG:		https://www.poweradmin.se
-		TWITTER:	walle75
-		CREATED:	2009-12-24
-		UPDATED:  	2025-12-28
-        VERSION:    4.0
-
-                    4.0 - Changed to use names.json file instead of individual TXT files, added validation for Country parameter
-                    3.2 - Added support for Denmark andNorway
-                    2.1 - Changed UK to England and Wales
-                    1.0 - Initial version
+		Author:  Fredrik Wall
+		Email:   wall.fredrik@gmail.com
+		Blog:    www.poweradmin.se
+		Twitter: @walle75
+		Created: 2009-12-24
+		Updated: 2025-12-30
+		Version: 4.1
+		
+		Changelog:
+		4.1 (2025-12-30) - Added Finland support
+		4.0 (2025-12-28) - Changed to use names.json file instead of individual TXT files, added validation for Country parameter
+		3.2              - Added support for Denmark and Norway
+		2.1              - Changed UK to England and Wales
+		1.0 (2009-12-24) - Initial version
 
 #>	
 	[CmdletBinding()]
@@ -48,7 +53,7 @@ function Get-SurName
 	(
 		[Parameter(Mandatory = $true,
 				   Position = 1)]
-		[ValidateSet('ENGLANDWALES', 'Norway', 'Sweden', 'USA', 'ALL')]
+		[ValidateSet('ENGLANDWALES', 'Finland', 'Norway', 'Sweden', 'USA', 'ALL')]
 		[string]$Country
 	)
 	
