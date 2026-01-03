@@ -162,5 +162,3 @@ function Invoke-DownloadIcons {
         }
     }
 }
-
-Invoke-DownloadIcons -DestinationPath "C:\Icons"
