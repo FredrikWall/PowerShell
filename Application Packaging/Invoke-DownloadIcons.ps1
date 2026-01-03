@@ -45,6 +45,7 @@ function Invoke-DownloadIcons {
         1.1 (2026-01-02) - Added filter to download only PNG files
         1.0 (2026-01-02) - Initial version with GitHub API integration
         
+        Thanks to Morten Glimme (MrtnRQL) for the icon repository!
         Repository: https://github.com/MrtnRQL/Companyportaliconsdotcom
     #>
     [CmdletBinding()]
