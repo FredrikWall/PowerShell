@@ -360,18 +360,3 @@ function Get-SetupFileInformation {
         }
     }
 }
-
-$SetupFileInfo = Get-SetupFileInformation -Path "C:\Users\wallf\Downloads\googlechromestandaloneenterprise64 (1).msi"
-#$SetupFileInfo = Get-SetupFileInformation -Path "C:\Users\wallf\Downloads\FileZilla_3.69.1_win64_sponsored2-setup.exe"
-$PackagePath = "C:\ApplicationPackaging\02_Dev\$($SetupFileInfo.Vendor)_$($SetupFileInfo.Name)_$($SetupFileInfo.Version)_$($SetupFileInfo.Architecture)_01"
-
-$SetupFileInfo | New-ApplicationPackage -TemplatePath 'C:\ApplicationPackaging\01_Templates\PSAppDeployToolkit v4.1.7\App_Vendor_Application_Version_Architecture' -DestinationPath "C:\ApplicationPackaging\02_Dev"
-$SetupFileInfo | New-ApplicationInformationFile -Path "$PackagePath\DOC" -Icon "ICON\Google-Chrome.png" -DetectionMethod MSIProductCode -DetectionMethodValue $SetupFileInfo.ProductCode -Force
-$SetupFileInfo | Set-PSADTInformation -PSADTPath "$PackagePath\PSADT"
-
-Copy-ApplicationIcon -SourceIconPath "C:\ApplicationPackaging\05_Icons\*\Google-Chrome.png" -DestinationPath "$PackagePath" -Force
-Remove-PackageReadme -Path "$PackagePath"
-
-
-
-
